@@ -46,6 +46,46 @@
 			"response": []
 		},
 		{
+			"name": "Send message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2fd29418-baf9-455c-96ea-387d26eb6733",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"phone\" : \"+551999908070\",\n\t\"text\" : \"Teste de postman\",\n\t\"groupId\" : -464836117\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Set Code",
 			"request": {
 				"method": "PUT",

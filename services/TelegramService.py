@@ -10,7 +10,6 @@ class TelegramService:
     @staticmethod
     async def add_phone(phone):
         try:
-            #client.session.filename = phone
             request = await client.send_code_request(phone)
             return jsonify({'token': request.phone_code_hash}), 201
         except Exception as e:
@@ -19,8 +18,19 @@ class TelegramService:
     @staticmethod
     async def set_code(phone, code, token):
         try:
-            await client.sign_in(phone, code, phone_code_hash=token)
+            await client.sign_in(phone, code)
             return {}, 200
+        except Exception as e:
+            return TelegramService.handle_error(e)
+
+    @staticmethod
+    async def send_message(phone, text, group_id):
+        try:
+            if client.is_user_authorized():
+                await client.send_message(group_id, text)
+                return {}, 200
+            else:
+                return {'message': 'user not authorized'}, 401
         except Exception as e:
             return TelegramService.handle_error(e)
 

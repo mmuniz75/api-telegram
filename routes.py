@@ -13,3 +13,9 @@ async def add_phone():
 async def set_code(phone):
     form = await request.json
     return await TelegramService.set_code(phone, form['code'], form['token'])
+
+
+@app.route('/messages', methods=['POST'])
+async def send_messages():
+    form = await request.json
+    return await TelegramService.send_message(form['phone'], form['text'], form['groupId'])
