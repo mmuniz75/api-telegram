@@ -61,10 +61,26 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "code",
+						"value": "77537",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "phone",
+						"value": "+551999908070",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"phone\" : \"+551999908070\",\n\t\"text\" : \"Teste de postman\",\n\t\"groupId\" : -464836117\n}",
+					"raw": "{\n\t\"text\" : \"teste com header\",\n\t\"groupId\" : -464836117\n}",
 					"options": {
 						"raw": {
 							"language": "json"
