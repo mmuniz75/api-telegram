@@ -16,6 +16,14 @@ async def send_messages():
     return await TelegramService.send_message(header['phone'], form['text'], form['groupId'], header['code'], header['token'])
 
 
+@app.route('/groups', methods=['POST'])
+async def create_groups():
+    form = await request.json
+    header = request.headers
+    return await TelegramService.create_group(header['phone'], header['code'], header['token'],
+                                              form['groupName'], form['membersName'])
+
+
 @app.route('/users/logout', methods=['POST'])
 async def logout():
     form = await request.json

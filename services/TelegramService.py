@@ -2,6 +2,7 @@ import logging
 from quart import jsonify
 from app import API_ID, API_HASH
 from telethon import TelegramClient
+from telethon.tl.functions.messages import CreateChatRequest
 
 logger = logging.Logger('catch_all')
 
@@ -49,7 +50,11 @@ class TelegramService:
     def handle_error(e):
         logger.error(e, exc_info=True)
         message = e.args[0]
-        return jsonify({'message': message}), e.code
+        if hasattr(e, 'code'):
+            code = e.code
+        else:
+            code = 500
+        return jsonify({'message': message}), code
 
     poolsClient = {}
 
@@ -68,3 +73,20 @@ class TelegramService:
     async def close(client):
         if client:
             await client.disconnect()
+
+    @staticmethod
+    async def create_group(phone, code, token, group_name, members):
+        try:
+            client = await TelegramService.get_client(phone)
+            await client.sign_in(phone, code, phone_code_hash=token)
+            if await client.is_user_authorized():
+                await client(CreateChatRequest(
+                    users=members,
+                    title=group_name
+                ))
+                return {}, 201
+            else:
+                return {'message': 'user not authorized'}, 401
+        except Exception as e:
+            return TelegramService.handle_error(e)
+

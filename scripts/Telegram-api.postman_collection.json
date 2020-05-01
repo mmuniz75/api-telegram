@@ -53,7 +53,7 @@
 					"script": {
 						"id": "0ddf9521-1f3f-47ce-a582-18b593f3930b",
 						"exec": [
-							"pm.globals.set(\"token\", pm.response.json().token);"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -137,6 +137,62 @@
 					"port": "8000",
 					"path": [
 						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3987c5b7-379b-4d8d-8898-39ea59d788aa",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "code",
+						"type": "text",
+						"value": "64166"
+					},
+					{
+						"key": "token",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "phone",
+						"type": "text",
+						"value": "+551999908070"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupName\" : \"grupo python test\",\n\t\"membersName\" : [1232004872,1105766877]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"groups"
 					]
 				}
 			},
