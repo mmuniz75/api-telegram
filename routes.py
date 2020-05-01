@@ -1,5 +1,5 @@
 from services.TelegramService import TelegramService
-from quart import request, jsonify
+from quart import request
 from app import app
 
 
@@ -7,7 +7,6 @@ from app import app
 async def add_phone():
     form = await request.json
     return await TelegramService.add_phone(form['phone'])
-
 
 
 @app.route('/messages', methods=['POST'])

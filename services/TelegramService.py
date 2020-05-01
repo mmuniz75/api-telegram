@@ -41,9 +41,16 @@ class TelegramService:
         message = e.args[0]
         return jsonify({'message': message}), e.code
 
+    poolsClient = {}
+
     @staticmethod
     async def get_client(phone):
-        client = TelegramClient(phone, API_ID, API_HASH)
+        if phone in TelegramService.poolsClient:
+            client = TelegramService.poolsClient[phone]
+        else:
+            client = TelegramClient(phone, API_ID, API_HASH)
+            TelegramService.poolsClient[phone] = client
+
         await client.connect()
         return client
 
