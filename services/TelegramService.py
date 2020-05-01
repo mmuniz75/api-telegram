@@ -9,7 +9,7 @@ logger = logging.Logger('catch_all')
 class TelegramService:
 
     @staticmethod
-    async def add_phone(phone):
+    async def login(phone):
         try:
             client = await TelegramService.get_client(phone)
             request = await client.send_code_request(phone)
@@ -34,6 +34,16 @@ class TelegramService:
             return TelegramService.handle_error(e)
         finally:
             await TelegramService.close(client)
+
+    @staticmethod
+    async def logout(phone):
+        try:
+            client = await TelegramService.get_client(phone)
+            await client.log_out()
+            del TelegramService.poolsClient[phone]
+            return {}, 200
+        except Exception as e:
+            return TelegramService.handle_error(e)
 
     @staticmethod
     def handle_error(e):

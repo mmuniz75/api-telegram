@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Add phone",
+			"name": "Login",
 			"event": [
 				{
 					"listen": "test",
@@ -46,6 +46,47 @@
 			"response": []
 		},
 		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ddf9521-1f3f-47ce-a582-18b593f3930b",
+						"exec": [
+							"pm.globals.set(\"token\", pm.response.json().token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"phone\" : \"+551999908070\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/users/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Send message",
 			"event": [
 				{
@@ -64,12 +105,12 @@
 				"header": [
 					{
 						"key": "code",
-						"value": "77537",
+						"value": "27117",
 						"type": "text"
 					},
 					{
 						"key": "token",
-						"value": "{{token}}",
+						"value": "ed09930c976dd6d109",
 						"type": "text"
 					},
 					{
@@ -80,7 +121,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"text\" : \"teste com header\",\n\t\"groupId\" : -464836117\n}",
+					"raw": "{\n\t\"text\" : \"tudo bem comigo e com vc Fabiola ?\",\n\t\"groupId\" : -464836117\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -102,13 +143,25 @@
 			"response": []
 		},
 		{
-			"name": "Set Code",
+			"name": "Login 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9024d7a4-11c4-4191-be0d-d378f9c7eaed",
+						"exec": [
+							"pm.globals.set(\"token\", pm.response.json().token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"code\" : \"77530\",\n\t\"token\" : \"bf543b8e6e2bc671e3\"\n}",
+					"raw": "{\n\t\"phone\" : \"+5519998742025\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -116,15 +169,70 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/users/+551999908070",
+					"raw": "http://localhost:8000/users",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"users",
-						"+551999908070"
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send message 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e720e5d-7122-422f-9395-5bc3e8d12dce",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "code",
+						"value": "90662",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "d8aee33c68d3cf918d",
+						"type": "text"
+					},
+					{
+						"key": "phone",
+						"value": "+5519998742025",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"tudo bem comigo e com vc Marcelo ? \",\n\t\"groupId\" : -464836117\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"messages"
 					]
 				}
 			},
