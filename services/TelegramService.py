@@ -1,9 +1,11 @@
 import logging
 from quart import jsonify
-from app import API_ID, API_HASH
+from app import API_ID, API_HASH, DB_URL
 from telethon import TelegramClient
 from telethon.tl.functions.messages import CreateChatRequest
 
+from alchemysession import AlchemySessionContainer
+container = AlchemySessionContainer(DB_URL)
 logger = logging.Logger('catch_all')
 
 
@@ -63,7 +65,9 @@ class TelegramService:
         if phone in TelegramService.poolsClient:
             client = TelegramService.poolsClient[phone]
         else:
-            client = TelegramClient(phone, API_ID, API_HASH)
+            session = container.new_session(phone)
+            client = TelegramClient(session, API_ID, API_HASH)
+            #client = TelegramClient(phone, API_ID, API_HASH)
             TelegramService.poolsClient[phone] = client
 
         await client.connect()

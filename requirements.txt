@@ -19,3 +19,8 @@ toml==0.10.0
 typing-extensions==3.7.4.2
 Werkzeug==1.0.1
 wsproto==0.15.0
+psycopg2==2.8.5
+telethon-session-sqlalchemy==0.2.15
+
+
+
